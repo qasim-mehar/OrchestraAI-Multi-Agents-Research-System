@@ -20,24 +20,30 @@ def web_search(query: str) -> str:
         query (str): The search query string to look up on the web.
 
     Returns:
-        str: A string containing the search results from Tavily,
+        str: A formatted string containing the search results from Tavily,
              including relevant snippets and sources.
     """
     tavily = TavilySearch()
     response = tavily.invoke({"query": query})
-    doc = []
-    for r in response.get("results", []):
-        doc.append(
-            {
-                "url": r.get("url", ""),
-                "title": r.get("title", "No Title"),
-                "content": r.get("content", ""),
-                "score": r.get("score", 0.0),
-                "source": "tavily_web_search",
-            }
+
+    formatted_results = []
+
+    for search_result in response.get("results", []):
+        url = search_result.get("url", "No URL")
+        title = search_result.get("title", "No Title")
+        content = search_result.get("content", "No content available")
+        relevance_score = search_result.get("score", 0.0)
+
+        result_block = (
+            f"Source: {title}\n"
+            f"URL: {url}\n"
+            f"Relevance: {relevance_score:.4f}\n"
+            f"Content: {content}"
         )
 
-    return doc
+        formatted_results.append(result_block)
+
+    return "\n\n----\n\n".join(formatted_results)
 
 
 print(web_search.invoke("Pakistan mediation role in IRAN-US war?"))
