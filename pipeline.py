@@ -18,3 +18,17 @@ def run_research_pipeline(topic: str) -> dict:
     Returns:
         dict: State dict containing search results, research report, and critic report.
     """
+    state = {}
+
+    #  Broad Web Search
+    print(f"\n[bold cyan] Stage 1: Searching the web for '{topic}'...[/bold cyan]")
+
+    search_agent = web_search_agent()
+
+
+    basic_search_result = search_agent.invoke({
+        "messages": [("human", f"Find recent, reliable and detailed information about: {topic}")]
+    })
+
+    state["basic_results"] = basic_search_result["messages"][-1].content
+    print("[green] Stage 1 complete.[/green]")
