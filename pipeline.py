@@ -32,3 +32,22 @@ def run_research_pipeline(topic: str) -> dict:
 
     state["basic_results"] = basic_search_result["messages"][-1].content
     print("[green] Stage 1 complete.[/green]")
+
+    #  Deep Web Scrape
+    print("\n[bold cyan] Stage 2: Scraping the most relevant source...[/bold cyan]")
+
+    web_reader = web_reader_agent()
+
+
+    search_snippet = state["basic_results"][:800]
+
+    advanced_research_result = web_reader.invoke({
+        "messages": [("human",
+            f"Based on the following search results about '{topic}', "
+            f"pick the most relevant URL and scrape it for deeper content.\n\n"
+            f"Search Results:\n{search_snippet}"
+        )]
+    })
+
+    state["advanced_research_results"] = advanced_research_result["messages"][-1].content
+    print("[green] Stage 2 complete.[/green]")
