@@ -77,3 +77,16 @@ def run_research_pipeline(topic: str) -> dict:
     print("[green] Stage 4 complete.[/green]")
 
     return state
+
+
+def display_results(state: dict) -> None:
+    """Pretty-print the final pipeline output."""
+    print("\n" + "=" * 70)
+    print("[bold yellow] RESEARCH REPORT[/bold yellow]")
+    print("=" * 70)
+    print(state["research_report"])
+
+    print("\n" + "=" * 70)
+    print("[bold magenta] CRITIC REVIEW[/bold magenta]")
+    print("=" * 70)
+    print(state["critic_report"])
