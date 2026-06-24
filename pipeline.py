@@ -66,3 +66,14 @@ def run_research_pipeline(topic: str) -> dict:
         "research": combined_research,
     })
     print("[green] Stage 3 complete.[/green]")
+
+    #  Critic Review
+    print("\n[bold cyan] Stage 4: Running peer review...[/bold cyan]")
+
+    state["critic_report"] = critic_chain.invoke({
+        "topic": topic,
+        "research_report": state["research_report"],
+    })
+    print("[green] Stage 4 complete.[/green]")
+
+    return state
