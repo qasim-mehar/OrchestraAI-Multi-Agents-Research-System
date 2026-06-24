@@ -44,6 +44,3 @@ def web_search(query: str) -> str:
         formatted_results.append(result_block)
 
     return "\n\n----\n\n".join(formatted_results)
-
-
-print(web_search.invoke("Pakistan mediation role in IRAN-US war?"))
