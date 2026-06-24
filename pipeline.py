@@ -90,3 +90,14 @@ def display_results(state: dict) -> None:
     print("[bold magenta] CRITIC REVIEW[/bold magenta]")
     print("=" * 70)
     print(state["critic_report"])
+
+
+if __name__ == "__main__":
+    topic = input("topic?  : ").strip()
+
+    if not topic:
+        print("[red]Error: topic cannot be empty.[/red]")
+        exit(1)
+
+    state = run_research_pipeline(topic)
+    display_results(state)
