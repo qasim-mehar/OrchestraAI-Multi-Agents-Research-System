@@ -16,3 +16,21 @@ llm = ChatMistralAI(
     model="mistral-large-latest",
     temperature=0,
 )
+
+
+
+
+def web_search_agent():
+    """Agent that searches the web for recent information."""
+    return create_agent(
+        model=llm,
+        tools=[web_search],
+    )
+
+
+def web_reader_agent():
+    """Agent that scrapes and reads web pages in depth."""
+    return create_agent(
+        model=llm,
+        tools=[web_scrape],
+    )
