@@ -51,3 +51,18 @@ def run_research_pipeline(topic: str) -> dict:
 
     state["advanced_research_results"] = advanced_research_result["messages"][-1].content
     print("[green] Stage 2 complete.[/green]")
+
+    # Write Report
+    print("\n[bold cyan]  Stage 3: Writing the research report...[/bold cyan]")
+
+    combined_research = (
+        f"## BASIC SEARCH RESULTS\n{state['basic_results']}\n\n"
+        f"## DETAILED SCRAPED CONTENT\n{state['advanced_research_results']}"
+    )
+
+
+    state["research_report"] = writer_chain.invoke({
+        "topic": topic,
+        "research": combined_research,
+    })
+    print("[green] Stage 3 complete.[/green]")
